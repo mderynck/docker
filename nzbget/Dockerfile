@@ -6,12 +6,13 @@ RUN wget -O - http://nzbget.net/info/nzbget-version-linux.json | \
 RUN sh nzbget-latest-bin-linux.run
 
 FROM alpine:latest
-COPY --from=builder /nzbget /opt/nzbget
-RUN rm /opt/nzbget/nzbget.conf \
-	&& mkdir /opt/nzbget/config \
-	&& ln -s /opt/nzbget/config/nzbget.conf /opt/nzbget/nzbget.conf \
+WORKDIR /opt/nzbget
+COPY --from=builder /nzbget .
+RUN rm nzbget.conf \
+	&& mkdir config \
+	&& ln -s config/nzbget.conf nzbget.conf \
 	&& addgroup -S nzbget && adduser -S -g nzbget nzbget \
-	&& chown -R nzbget.nzbget /opt/nzbget
+	&& chown -R nzbget.nzbget .
 
 USER nzbget
 
