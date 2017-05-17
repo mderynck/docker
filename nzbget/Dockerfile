@@ -10,9 +10,7 @@ WORKDIR /opt/nzbget
 COPY --from=builder /nzbget .
 RUN rm nzbget.conf \
 	&& mkdir config \
-	&& ln -s config/nzbget.conf nzbget.conf \
-	&& addgroup -S nzbget && adduser -S -g nzbget nzbget \
-	&& chown -R nzbget.nzbget .
+	&& ln -s config/nzbget.conf nzbget.conf
 
 USER nzbget
 
