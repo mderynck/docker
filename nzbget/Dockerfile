@@ -12,7 +12,5 @@ RUN rm nzbget.conf \
 	&& mkdir config \
 	&& ln -s config/nzbget.conf nzbget.conf
 
-USER nzbget
-
 EXPOSE 6789
 CMD /opt/nzbget/nzbget -s -o outputmode=log
